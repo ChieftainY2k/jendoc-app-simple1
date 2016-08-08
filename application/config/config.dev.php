@@ -4,7 +4,7 @@
  */
 
 return [
-    "appName" => "Application name (dev)",
+    "appName" => "Demo App for Development Environment",
     "database" => [
         "host" => "mysql",
         "port" => 3306

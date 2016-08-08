@@ -5,6 +5,6 @@
 
 $config = require("../config/config." . getenv("APPLICATION_ENVIRONMENT") . ".php");
 
-echo "<hr>" . $config['appName'] . "<hr>";
+echo "Hello world! My name is " . $config['appName'] . "<hr>";
 
 //echo "<pre>"; print_r($config);

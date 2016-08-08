@@ -40,6 +40,7 @@ mysql -u root -pdev language < somedata.sql
 **Access the website from host**
 
 * http://www.jendocapp.local - the website
+* http://cadvisor.jendocapp.local/ - CAdvisor, container monitoring and performance analysis
 * http://phpmyadmin.jendocapp.local - phpMyAdmin (server: mysql, user: root, pass: dev)
 * http://jenkins.jendocapp.local - Jenkins
 

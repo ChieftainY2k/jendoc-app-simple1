@@ -34,6 +34,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.hostmanager.aliases = [
             "phpmyadmin.jendocapp.local",
             "jenkins.jendocapp.local",
+            "cadvisor.jendocapp.local",
+            "mailcatcher.jendocapp.local",
         ]
 
 
