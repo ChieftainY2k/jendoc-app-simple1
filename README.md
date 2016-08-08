@@ -43,8 +43,12 @@ mysql -u root -pdev language < somedata.sql
 
 **Running tests**
 `````
-cd /var/www/jandocapp
-docker-compose run --rm phpunit --bootstrap bootstrap.php tests/MyApplication
+cd /docker
+docker-compose run --rm phpunit vendor/bin/phpunit --bootstrap bootstrap.php tests/MyApplication
+
+#docker-compose run --rm app vendor/bin/phpunit --bootstrap bootstrap.php tests
+#cd /var/www/jandocapp
+# docker-compose run --rm phpunit --bootstrap bootstrap.php tests/MyApplication
 # docker run -e APPLICATION_ENVIRONMENT=dev -v $(pwd):/app --rm phpunit/phpunit --bootstrap bootstrap.php tests/MyApplication
 `````
 

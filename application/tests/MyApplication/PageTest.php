@@ -16,6 +16,11 @@ class PageTest extends TestCase
         $em = \MyApplication\Config::getDoctrineEntityManager();
         $em->persist($page);
         $em->flush();
+
+        $id = $page->getId();
+        $repo = \MyApplication\Config::getEntityRepository(\MyApplication\Entity\Page::class);
+        $found = $repo->find($id);
+        \Doctrine\Common\Util\Debug::dump($found);
     }
 
 }

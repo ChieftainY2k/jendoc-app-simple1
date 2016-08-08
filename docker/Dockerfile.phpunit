@@ -1,0 +1,7 @@
+# PHPUnit Docker Container.
+FROM webdevops/php-apache-dev:ubuntu-15.10
+
+WORKDIR /app
+
+#ENTRYPOINT ["/usr/local/bin/phpunit"]
+#CMD ["--help"]
