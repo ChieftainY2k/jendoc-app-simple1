@@ -9,6 +9,9 @@
 #######################################
 # Context environment
 
+#Application
+APPLICATION_ENVIRONMENT=dev
+
 # TYPO3
 TYPO3_CONTEXT=Development/Docker
 

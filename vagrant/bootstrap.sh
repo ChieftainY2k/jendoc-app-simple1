@@ -19,3 +19,4 @@ curl -L https://github.com/docker/machine/releases/download/v0.7.0/docker-machin
 
 # http://stackoverflow.com/questions/31616383/vagrant-mount-error-after-installing-docker
 sudo apt-get -y install linux-headers-$(uname -r)
+

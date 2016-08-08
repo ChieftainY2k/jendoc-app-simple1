@@ -11,5 +11,7 @@ application/vendor
 composer.phar
 
 vagrant/jenkins_lib/logs/**
+vagrant/jenkins_lib/.cache
+vagrant/jenkins_lib/.java
 
 

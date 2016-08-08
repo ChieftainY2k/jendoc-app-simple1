@@ -14,12 +14,11 @@ vagrant ssh
 `````
 
 **Update application vendor libraries (with dockerized composer)**
-
-
 `````
 cd /var/www/jendocapp/
-docker run --rm -v $(pwd):/app composer/composer install
+docker run --rm -v $(pwd):/app composer/composer:php5 install
 `````
+See more: https://hub.docker.com/r/composer/composer/
 
 **Start up the docker containers**
 `````

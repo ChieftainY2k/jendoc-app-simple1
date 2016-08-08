@@ -6,7 +6,7 @@ app:
   dockerfile: Dockerfile.development
   links:
     - mysql
-    #- app:www.languageinternational.com.local
+    - nginx
     #- postgres
     #- mail
     #- solr
@@ -14,21 +14,10 @@ app:
     #- redis
     #- memcached
     #- ftp
-#  ports:
-#    - "80:80"
-#    - "443:443"
-#    - "22:22"
   volumes:
-    #- ./app/:/app/
     - /var/www/jendocapp/:/app/
-#    - /tmp/debug/:/tmp/debug/
-#    - ./:/docker/
   volumes_from:
     - storage
-#  # cap and privileged needed for slowlog
-#  cap_add:
-#    - SYS_PTRACE
-#  privileged: true
   env_file:
     - etc/environment.yml
     - etc/environment.development.yml
