@@ -42,15 +42,14 @@ docker exec -it mysql bash
 mysql -u root -pdev language < somedata.sql
 `````
 
-**Running tests**
+**Running tests (with compose namespace "tests")**
 `````
 cd /docker
-docker-compose run --rm phpunit vendor/bin/phpunit --bootstrap bootstrap.php tests/MyApplication
-
-#docker-compose run --rm app vendor/bin/phpunit --bootstrap bootstrap.php tests
-#cd /var/www/jandocapp
-# docker-compose run --rm phpunit --bootstrap bootstrap.php tests/MyApplication
-# docker run -e APPLICATION_ENVIRONMENT=dev -v $(pwd):/app --rm phpunit/phpunit --bootstrap bootstrap.php tests/MyApplication
+# docker-compose -p tests up -d phpunit
+# docker-compose -p tests exec phpunit vendor/bin/doctrine orm:schema-tool:update --force
+docker-compose -p tests run --rm phpunit vendor/bin/phpunit --bootstrap bootstrap.php tests/MyApplication
+# docker-compose -p tests stop
+# docker-compose -p tests rm -f
 `````
 
 **Application directory (inside vagrant VM)**
