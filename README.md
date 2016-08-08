@@ -26,6 +26,14 @@ cd /docker
 docker-compose up -d
 `````
 
+**Configure doctrine database entities**
+`````
+cd /docker
+docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --dump-sql
+docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --force
+`````
+
+
 **Import database**
 `````
 cd /docker
