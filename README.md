@@ -44,7 +44,8 @@ mysql -u root -pdev language < somedata.sql
 **Running tests**
 `````
 cd /var/www/jandocapp
-docker run -e APPLICATION_ENVIRONMENT=dev -v $(pwd):/app --rm phpunit/phpunit --bootstrap bootstrap.php tests/MyApplication
+docker-compose run --rm phpunit --bootstrap bootstrap.php tests/MyApplication
+# docker run -e APPLICATION_ENVIRONMENT=dev -v $(pwd):/app --rm phpunit/phpunit --bootstrap bootstrap.php tests/MyApplication
 `````
 
 **Application directory (inside vagrant VM)**

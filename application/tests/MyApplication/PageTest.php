@@ -1,13 +1,21 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-class MoneyTest extends TestCase
+class PageTest extends TestCase
 {
 
-    public function testCanBeNegated()
+    public function testFakeTrue()
     {
-        // Assert
-        $this->assertEquals(1, 2);
+        $this->assertEquals(1, 1);
+    }
+
+    public function testCanEntityBeCreated()
+    {
+        $page = new \MyApplication\Entity\Page();
+        $page->setTitle("test title");
+        $em = \MyApplication\Config::getDoctrineEntityManager();
+        $em->persist($page);
+        $em->flush();
     }
 
 }

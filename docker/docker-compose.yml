@@ -15,17 +15,36 @@ app:
     #- redis
     #- memcached
     #- ftp
-  volumes:
-    - /var/www/jendocapp/:/app/
+#  volumes:
+#    - /var/www/jendocapp/:/app/
   volumes_from:
     - storage
   env_file:
     - etc/environment.yml
     - etc/environment.development.yml
   environment:
-    - WEB_DOCUMENT_ROOT=/app/public/
+    - WEB_DOCUMENT_ROOT=/app/public
     - VIRTUAL_HOST=www.jendocapp.local
 #    - DNSDOCK_ALIAS=admin.jendocapp.pl.local
+
+
+#######################################
+# PhpUnit container for tests
+#######################################
+phpunit:
+  build: .
+  dockerfile: Dockerfile.phpunit
+#  image: phpunit/phpunit
+  links:
+    - memcached
+    - mysql
+#  volumes:
+#    - /var/www/jendocapp/config/:/app/
+  volumes_from:
+    - storage
+  env_file:
+    - etc/environment.yml
+    - etc/environment.development.yml
 
 
 #######################################
@@ -125,7 +144,7 @@ mysql:
 #    - storage
 #  env_file:
 #    - etc/environment.yml
-#    - etc/environment.development.yml 
+#    - etc/environment.development.yml
 
 #######################################
 # Memcached
@@ -166,15 +185,15 @@ memcached:
 #######################################
 # phpMyAdmin
 #######################################
-phpmyadmin:
-  image: phpmyadmin/phpmyadmin
-  links:
-    - mysql
-  environment:
-    - PMA_ARBITRARY=1
-    - VIRTUAL_HOST=phpmyadmin.jendocapp.local
-  volumes:
-    - /sessions
+#phpmyadmin:
+#  image: phpmyadmin/phpmyadmin
+#  links:
+#    - mysql
+#  environment:
+#    - PMA_ARBITRARY=1
+#    - VIRTUAL_HOST=phpmyadmin.jendocapp.local
+#  volumes:
+#    - /sessions
 
 
 #######################################
@@ -191,30 +210,30 @@ phpmyadmin:
 #######################################
 # Jenkins (Docker-In-Docker version, aka DIND)
 #######################################
-jenkins:
-  image: killercentury/jenkins-dind
-  environment:
-    - VIRTUAL_HOST=jenkins.jendocapp.local
-    - VIRTUAL_PORT=8080
-  privileged: true
-  volumes:
-    - /vagrant/jenkins_home:/var/jenkins_home
-    - /vagrant/jenkins_lib:/var/lib/jenkins
+#jenkins:
+#  image: killercentury/jenkins-dind
+#  environment:
+#    - VIRTUAL_HOST=jenkins.jendocapp.local
+#    - VIRTUAL_PORT=8080
+#  privileged: true
+#  volumes:
+#    - /vagrant/jenkins_home:/var/jenkins_home
+#    - /vagrant/jenkins_lib:/var/lib/jenkins
 
 #######################################
 # CAdvisor
 #######################################
-cadvisor:
-  image: google/cadvisor
-  environment:
-    - VIRTUAL_HOST=cadvisor.jendocapp.local
-    - VIRTUAL_PORT=8080
-  privileged: true
-  volumes:
-    - /:/rootfs:ro
-    - /var/run:/var/run:rw
-    - /sys:/sys:ro
-    - /var/lib/docker/:/var/lib/docker:ro
+#cadvisor:
+#  image: google/cadvisor
+#  environment:
+#    - VIRTUAL_HOST=cadvisor.jendocapp.local
+#    - VIRTUAL_PORT=8080
+#  privileged: true
+#  volumes:
+#    - /:/rootfs:ro
+#    - /var/run:/var/run:rw
+#    - /sys:/sys:ro
+#    - /var/lib/docker/:/var/lib/docker:ro
 
 #######################################
 # Storage
@@ -223,3 +242,5 @@ storage:
   build: docker/storage/
   volumes:
     - /docker-storage/:/storage
+    - /var/www/jendocapp/:/app/
+#    - /var/www/jendocapp/application/:/app/
