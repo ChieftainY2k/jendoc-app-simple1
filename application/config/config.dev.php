@@ -3,7 +3,6 @@
  * Sample configuration file
  */
 
-
 return [
     "appName" => "Demo App for Development Environment",
     "doctrine" => [

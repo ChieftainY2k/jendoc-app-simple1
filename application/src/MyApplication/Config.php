@@ -108,5 +108,17 @@ class Config
 
     }
 
+    /**
+     * Get ORM entity repository
+     * @param $entityName
+     * @return  \Doctrine\ORM\EntityRepository
+     */
+    static function getEntityRepository($entityName)
+    {
+        $entityManager = self::getDoctrineEntityManager();
+        $repository = $entityManager->getRepository($entityName);
+        return $repository;
+    }
+
 
 }

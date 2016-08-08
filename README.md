@@ -41,6 +41,12 @@ docker exec -it mysql bash
 mysql -u root -pdev language < somedata.sql
 `````
 
+**Running tests**
+`````
+cd /var/www/jandocapp
+docker run -v $(pwd):/app --rm phpunit/phpunit run
+`````
+
 **Application directory (inside vagrant VM)**
 
 * /var/www/jendocapp
