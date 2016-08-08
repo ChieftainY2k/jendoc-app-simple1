@@ -7,9 +7,8 @@ nbproject
 .idea
 .project
 .settings
-vendor
+application/vendor
 composer.phar
-*/logs/*
 
 vagrant/jenkins_lib/logs/**
 
