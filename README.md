@@ -24,7 +24,7 @@ See more: https://hub.docker.com/r/composer/composer/
 **Start up the docker containers**
 `````
 cd /docker
-docker-compose up -d
+./run_application.sh
 `````
 
 **Configure doctrine database entities**
@@ -51,7 +51,7 @@ cd /docker
 **Running phing tasks in isolated container namespace**
 `````
 cd /docker
-... vendor/bin/phing -f build/build.xml clean
+docker-compose -p build run --rm cli vendor/bin/phing -f build/build.xml TASK_NAME
 `````
 
 **Application directory (inside vagrant VM)**

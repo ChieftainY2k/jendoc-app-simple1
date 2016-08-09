@@ -6,18 +6,18 @@ use PHPUnit\Framework\TestCase;
  */
 class PageTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
-        //echo("***". __METHOD__ . "\n");
-
-        //destroy and recreate schama for entities
-        $em = \MyApplication\Config::getDoctrineEntityManager();
-        $metadatas = $em->getMetadataFactory()->getAllMetadata();
-        $schema_tool = new \Doctrine\ORM\Tools\SchemaTool($em);
-        $schema_tool->dropSchema($metadatas);
-        $schema_tool->createSchema($metadatas);
-    }
-
+    //public static function setUpBeforeClass()
+    //{
+    //    //echo("***". __METHOD__ . "\n");
+    //
+    //    ////destroy and recreate schema for entities
+    //    //$em = \MyApplication\Config::getDoctrineEntityManager();
+    //    //$metadatas = $em->getMetadataFactory()->getAllMetadata();
+    //    //$schema_tool = new \Doctrine\ORM\Tools\SchemaTool($em);
+    //    //$schema_tool->dropSchema($metadatas);
+    //    //$schema_tool->createSchema($metadatas);
+    //}
+    //
     //protected function setUp()
     //{
     //    //echo("***". __METHOD__ . "\n");

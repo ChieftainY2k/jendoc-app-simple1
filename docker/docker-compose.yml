@@ -8,6 +8,7 @@ app:
     - memcached
     - mysql
     - nginx
+    - phpmyadmin
     #- postgres
     #- mail
     #- solr
@@ -38,8 +39,8 @@ cli:
   links:
     - memcached
     - mysql
-#  volumes:
-#    - /var/www/jendocapp/config/:/app/
+  volumes:
+    - /build-result/:/build-result/
   volumes_from:
     - storage
   env_file:
@@ -185,15 +186,15 @@ memcached:
 #######################################
 # phpMyAdmin
 #######################################
-#phpmyadmin:
-#  image: phpmyadmin/phpmyadmin
-#  links:
-#    - mysql
-#  environment:
-#    - PMA_ARBITRARY=1
-#    - VIRTUAL_HOST=phpmyadmin.jendocapp.local
-#  volumes:
-#    - /sessions
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+    - mysql
+  environment:
+    - PMA_ARBITRARY=1
+    - VIRTUAL_HOST=phpmyadmin.jendocapp.local
+  volumes:
+    - /sessions
 
 
 #######################################

@@ -2,21 +2,31 @@
 
 <project name="MyProject" default="build">
 
-    <property name="buildDir" value="/tmp/build/"/>
+    <property name="buildDir" value="/build-result/"/>
 
     <fileset id="srcfiles" dir="..">
-        <include name="src/*"/>
-        <include name="config/*"/>
-        <include name="public/*"/>
+        <include name="src/**"/>
+        <include name="config/**"/>
+        <include name="public/**"/>
+        <include name="composer.json"/>
+        <include name="composer.lock"/>
         <exclude name="*.tmp"/>
     </fileset>
 
     <target name="build">
+
         <echo msg="Building project..."/>
+
         <mkdir dir="${buildDir}"/>
+
+        <echo msg="Copying files..."/>
         <copy todir="${buildDir}">
             <fileset refid="srcfiles"/>
         </copy>
+
+        <echo msg="Executing composer..."/>
+        <exec command="composer install" dir="${buildDir}" passthru="true" checkreturn="true"/>
+
     </target>
 
     <target name="clean">
@@ -34,10 +44,13 @@
 
     <target name="phpunit" description="Runs phpunit tests">
 
+        <echo msg="Waiting for services..."/>
+        <exec command="scripts/wait_for_services.sh" dir=".." passthru="true" checkreturn="true"/>
+
+        <echo msg="Creating database..."/>
+        <exec command="vendor/bin/doctrine orm:schema-tool:update --force" dir=".." passthru="true" checkreturn="true"/>
+
         <echo msg="Running phpunit..."/>
-
-        <exec command="scripts/wait_for_services.sh" dir=".." passthru="true"/>
-
         <phpunit
                 haltonerror="true"
                 haltonfailure="true"
