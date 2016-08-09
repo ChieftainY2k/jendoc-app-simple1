@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="MyProject" default="fake">
+
+    <property name="buildDir" value="build"/>
+
+    <fileset id="srcfiles" dir="..">
+        <include name="src/*"/>
+        <include name="config/*"/>
+        <include name="public/*"/>
+        <exclude name="*.tmp"/>
+    </fileset>
+
+    <target name="build">
+        <echo msg="Copying to build directory..."/>
+        <mkdir dir="${buildDir}"/>
+        <copy todir="${buildDir}">
+            <fileset refid="srcfiles"/>
+        </copy>
+    </target>
+
+    <target name="clean">
+        <echo msg="Cleaning build directory..."/>
+        <delete dir="${buildDir}" includeemptydirs="true" verbose="true" failonerror="true"/>
+    </target>
+
+    <target name="deploy" depends="runTests,build">
+        <echo msg="Deploying project..."/>
+    </target>
+
+    <target name="runTests" description="Runs tests" depends="phpunit">
+        <!--<echo msg="A fake test message!" />-->
+    </target>
+
+    <target name="phpunit" description="Runs phpunit tests">
+        <echo msg="Running phpunit..."/>
+        <phpunit
+                haltonerror="true"
+                haltonfailure="true"
+                printsummary="true"
+                haltonskipped="true"
+                haltonincomplete="true"
+                bootstrap="../bootstrap.php"
+        >
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="../tests/">
+                    <include name="*/*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+
+</project>

@@ -6,5 +6,6 @@ RUN apt-get -u update && apt-get -y install netcat
 
 WORKDIR /app
 
-ENTRYPOINT tests/scripts/phpunit_wait_for_services.sh
+#ENTRYPOINT tests/scripts/phpunit_wait_for_services.sh
+
 

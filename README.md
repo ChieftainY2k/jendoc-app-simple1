@@ -42,14 +42,10 @@ docker exec -it mysql bash
 mysql -u root -pdev language < somedata.sql
 `````
 
-**Running tests (with compose namespace "tests")**
+**Running tests in isolated container namespace**
 `````
 cd /docker
-# docker-compose -p tests up -d phpunit
-# docker-compose -p tests exec phpunit vendor/bin/doctrine orm:schema-tool:update --force
-docker-compose -p tests run --rm phpunit vendor/bin/phpunit --bootstrap bootstrap.php tests/MyApplication
-# docker-compose -p tests stop
-# docker-compose -p tests rm -f
+./run_tests.sh
 `````
 
 **Application directory (inside vagrant VM)**
