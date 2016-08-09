@@ -1,8 +1,10 @@
 # PHPUnit Docker Container.
+
 FROM webdevops/php-apache-dev:ubuntu-15.10
+
+RUN apt-get -u update && apt-get -y install netcat
 
 WORKDIR /app
 
-ENTRYPOINT ["vendor/bin/phpunit","--bootstrap","bootstrap.php","tests"]
-#ENTRYPOINT ["/usr/local/bin/phpunit"]
-#CMD ["--help"]
+ENTRYPOINT tests/scripts/phpunit_wait_for_services.sh
+

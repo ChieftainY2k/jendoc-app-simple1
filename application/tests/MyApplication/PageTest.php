@@ -1,11 +1,14 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Simple demo tests
+ */
 class PageTest extends TestCase
 {
     public static function setUpBeforeClass()
     {
-        //echo(" ***". __METHOD__ . "\n");
+        //echo("***". __METHOD__ . "\n");
 
         //destroy and recreate schama for entities
         $em = \MyApplication\Config::getDoctrineEntityManager();
@@ -15,38 +18,40 @@ class PageTest extends TestCase
         $schema_tool->createSchema($metadatas);
     }
 
-    protected function setUp()
-    {
-        //echo(" ***". __METHOD__ . "\n");
-    }
-
-    protected function assertPreConditions()
-    {
-        //echo(" ***". __METHOD__ . "\n");
-    }
-
-    protected function assertPostConditions()
-    {
-        //echo(" ***". __METHOD__ . "\n");
-    }
-
-    protected function tearDown()
-    {
-        //echo(" ***". __METHOD__ . "\n");
-    }
-
-    public static function tearDownAfterClass()
-    {
-        //echo(" ***". __METHOD__ . "\n");
-    }
+    //protected function setUp()
+    //{
+    //    //echo("***". __METHOD__ . "\n");
+    //}
+    //
+    //protected function assertPreConditions()
+    //{
+    //    //echo("***". __METHOD__ . "\n");
+    //}
+    //
+    //protected function assertPostConditions()
+    //{
+    //    //echo("***". __METHOD__ . "\n");
+    //}
+    //
+    //protected function tearDown()
+    //{
+    //    //echo("***". __METHOD__ . "\n");
+    //}
+    //
+    //public static function tearDownAfterClass()
+    //{
+    //    //echo("***". __METHOD__ . "\n");
+    //}
 
     public function testFakeTrue()
     {
+        //echo("***". __METHOD__ . "\n");
         $this->assertEquals(1, 1);
     }
 
     public function testCanEntityBeCreated()
     {
+        //echo("***". __METHOD__ . "\n");
         $page = new \MyApplication\Entity\Page();
         $page->setTitle("test title");
         $em = \MyApplication\Config::getDoctrineEntityManager();
