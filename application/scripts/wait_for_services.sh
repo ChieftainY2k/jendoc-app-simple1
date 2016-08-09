@@ -28,11 +28,11 @@ waitForServiceConnection memcached 11211
 echo -n "Waiting for mysql service: "
 waitForServiceConnection mysql 3306
 
-#Run tests
-echo -n "Running tests..."
-vendor/bin/phpunit --bootstrap bootstrap.php tests
-
-EXITCODE=$?
-echo "Tests finished. Exit code is $EXITCODE"
-
-exit $EXITCODE
+##Run tests
+#echo -n "Running tests..."
+#vendor/bin/phpunit --bootstrap bootstrap.php tests
+#
+#EXITCODE=$?
+#echo "Tests finished. Exit code is $EXITCODE"
+#
+#exit $EXITCODE

@@ -29,11 +29,11 @@ app:
 
 
 #######################################
-# PhpUnit container for tests
+# PHP CLI container for tests, builds etc.
 #######################################
-phpunit:
+cli:
   build: .
-  dockerfile: Dockerfile.phpunit
+  dockerfile: Dockerfile.cli
 #  image: phpunit/phpunit
   links:
     - memcached

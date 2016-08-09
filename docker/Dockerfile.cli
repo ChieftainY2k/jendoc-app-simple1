@@ -8,4 +8,6 @@ WORKDIR /app
 
 #ENTRYPOINT tests/scripts/phpunit_wait_for_services.sh
 
+#ENTRYPOINT bash
+
 

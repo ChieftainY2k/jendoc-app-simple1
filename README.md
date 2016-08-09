@@ -48,6 +48,12 @@ cd /docker
 ./run_tests.sh
 `````
 
+**Running phing tasks in isolated container namespace**
+`````
+cd /docker
+... vendor/bin/phing -f build/build.xml clean
+`````
+
 **Application directory (inside vagrant VM)**
 
 * /var/www/jendocapp
