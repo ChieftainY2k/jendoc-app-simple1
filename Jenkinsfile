@@ -1,4 +1,4 @@
 node {
-    stage 'Pulling code'
+    stage 'My stage 1'
     echo 'foo bar test message!'
 }
