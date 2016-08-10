@@ -1,5 +1,7 @@
 node {
 
+    currentBuild.result = "SUCCESS"
+
     try {
         
         stage 'Pre-flight check'
