@@ -54,6 +54,18 @@ cd /docker
 docker-compose -p build run --rm cli vendor/bin/phing -f build/build.xml TASK_NAME
 `````
 
+**Starting up local jenkins instance**
+`````
+cd /docker
+./run_jenkins
+`````
+
+**Running bash inside jenkins to fiddle around**
+`````
+cd /docker
+docker-compose -p jenkins exec jenkins bash
+`````
+
 **Application directory (inside vagrant VM)**
 
 * /var/www/jendocapp

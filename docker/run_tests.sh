@@ -13,6 +13,7 @@ docker-compose -p $NAMESPACE rm -f
 
 echo "[$NAMESPACE] Running tests..."
 docker-compose -p $NAMESPACE build cli
+docker-compose -p $NAMESPACE run --rm cli composer install
 docker-compose -p $NAMESPACE run --rm cli vendor/bin/phing -f build/build.xml test
 EXITCODE=$?
 
