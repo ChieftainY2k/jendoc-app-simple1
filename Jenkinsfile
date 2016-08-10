@@ -1,11 +1,13 @@
 node {
 
     currentBuild.result = "SUCCESS"
+    env.MYVAR = "foobar"
 
     try {
         
         stage 'Pre-flight check'
         echo 'This is a fake message'
+        sh 'env'
     
         stage 'Code checkout'
         checkout scm
