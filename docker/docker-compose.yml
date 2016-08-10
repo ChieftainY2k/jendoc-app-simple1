@@ -235,7 +235,10 @@ services:
   # Jenkins (Docker-In-Docker version, aka DIND)
   #######################################
   jenkins:
-    image: killercentury/jenkins-dind
+#    image: killercentury/jenkins-dind
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     links:
       - nginx
     environment:
