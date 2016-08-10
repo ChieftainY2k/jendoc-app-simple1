@@ -1,5 +1,5 @@
 #
-# Dockerized application for tests only
+# Creates image with application inside, for tests
 #
 
 FROM webdevops/php-apache-dev:ubuntu-15.10
@@ -9,7 +9,5 @@ RUN apt-get -u update && apt-get -y install netcat
 COPY ./application /application
 
 WORKDIR /application
-
-ENTRYPOINT scripts/run_tests.sh
 
 

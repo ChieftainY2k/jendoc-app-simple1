@@ -40,7 +40,7 @@ services:
   cli:
     build:
       context: .
-      dockerfile: Dockerfile.cli
+      dockerfile: Dockerfile.app.cli
   #  image: phpunit/phpunit
     links:
       - memcached
@@ -60,7 +60,7 @@ services:
   tests:
     build:
       context: ..
-      dockerfile: Dockerfile.application
+      dockerfile: Dockerfile.app.tests
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
@@ -187,13 +187,17 @@ services:
   #######################################
   # Mailcatcher
   #######################################
-  #mail:
-  #  build: docker/mail/
-  #  ports:
-  #    - 1080:1080
-  #  env_file:
-  #    - etc/environment.yml
-  #    - etc/environment.development.yml
+  mailcatcher:
+    build: docker/mail/
+#    ports:
+#      - 1080:1080
+    environment:
+      - VIRTUAL_HOST=mailcatcher.jendocapp.local
+      - VIRTUAL_PORT=1080
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+
 
   #######################################
   # FTP (vsftpd)
@@ -244,6 +248,7 @@ services:
       dockerfile: Dockerfile.jenkins
     links:
       - nginx
+      - mailcatcher
     environment:
       - VIRTUAL_HOST=jenkins.jendocapp.local
       - VIRTUAL_PORT=8080

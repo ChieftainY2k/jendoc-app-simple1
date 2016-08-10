@@ -30,27 +30,27 @@ cd /code/docker
 **Configure doctrine database entities**
 `````
 cd /code/docker
-docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --dump-sql
-docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --force
+docker-compose -p application exec app vendor/bin/doctrine orm:schema-tool:update --dump-sql
+docker-compose -p application exec app vendor/bin/doctrine orm:schema-tool:update --force
 `````
 
 **Import database**
 `````
 cd /code/docker
-docker-compose exec mysql bash
+docker-compose -p application exec mysql bash
 mysql -u root -pdev language < somedata.sql
 `````
 
 **Running tests in isolated container namespace**
 `````
 cd /code/docker
-./run_tests.sh
+./run_tests_dockerized.sh
 `````
 
 **Running phing tasks in isolated container namespace**
 `````
 cd /code/docker
-docker-compose -p build run --rm cli vendor/bin/phing -f build/build.xml TASK_NAME
+docker-compose -p SOME_NAMESPACE run --rm cli vendor/bin/phing -f build/build.xml TASK_NAME
 `````
 
 **Starting up local jenkins instance**
@@ -75,6 +75,7 @@ docker-compose -p jenkins exec jenkins bash
 * http://cadvisor.jendocapp.local/ - CAdvisor, container monitoring and performance analysis
 * http://phpmyadmin.jendocapp.local - phpMyAdmin (server: mysql, user: root, pass: dev)
 * http://jenkins.jendocapp.local - Jenkins
+* http://mailcatcher.jendocapp.local/ - Mailcatcher email catcher interface
 
 **Show docker containers logs**
 
