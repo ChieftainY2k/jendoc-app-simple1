@@ -16,8 +16,8 @@ app:
     #- redis
     #- memcached
     #- ftp
-#  volumes:
-#    - /var/www/jendocapp/:/app/
+  volumes:
+    - /var/www/jendocapp/:/app/
   volumes_from:
     - storage
   env_file:
@@ -41,6 +41,7 @@ cli:
     - mysql
   volumes:
     - /build-result/:/build-result/
+    - /var/www/jendocapp/:/app/
   volumes_from:
     - storage
   env_file:
@@ -244,6 +245,6 @@ jenkins:
 storage:
   build: docker/storage/
   volumes:
-#    - /docker-storage/:/storage
-    - /var/www/jendocapp/:/app/
+    - /docker-storage/:/storage
+#    - /var/www/jendocapp/:/app/
 #    - /var/www/jendocapp/application/:/app/
