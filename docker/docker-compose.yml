@@ -1,9 +1,10 @@
 version: '2'
 
-#######################################
-# PHP application Docker container
-#######################################
 services:
+
+  #######################################
+  # PHP application Docker container
+  #######################################
   app:
     build:
       context: .
