@@ -1,9 +1,13 @@
 node {
-    stage 'My stage 1'
+
+    stage 'My stage message'
     echo 'foo bar test message first'
-    echo 'foo bar test message second'
+
+    stage 'Checkout'
+    checkout scm
 
     stage 'Running tests'
     sh 'pwd'
     sh 'ls -la'
+    
 }
