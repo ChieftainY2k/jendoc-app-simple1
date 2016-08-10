@@ -1,250 +1,271 @@
+version: '2'
+
 #######################################
 # PHP application Docker container
 #######################################
-app:
-  build: .
-  dockerfile: Dockerfile.development
-  links:
-    - memcached
-    - mysql
-    - nginx
-    - phpmyadmin
-    #- postgres
-    #- mail
-    #- solr
-    #- elasticsearch
-    #- redis
-    #- memcached
-    #- ftp
-  volumes:
-    - /var/www/jendocapp/:/app/
-  volumes_from:
-    - storage
-  env_file:
-    - etc/environment.yml
-    - etc/environment.development.yml
-  environment:
-    - WEB_DOCUMENT_ROOT=/app/public
-    - VIRTUAL_HOST=www.jendocapp.local
-#    - DNSDOCK_ALIAS=admin.jendocapp.pl.local
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    links:
+      - memcached
+      - mysql
+      - nginx
+      - phpmyadmin
+      #- postgres
+      #- mail
+      #- solr
+      #- elasticsearch
+      #- redis
+      #- memcached
+      #- ftp
+    volumes:
+      - ../application/:/app/
+    volumes_from:
+      - storage
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=www.jendocapp.local
+  #    - DNSDOCK_ALIAS=admin.jendocapp.pl.local
 
 
-#######################################
-# PHP CLI container for tests, builds etc.
-#######################################
-cli:
-  build: .
-  dockerfile: Dockerfile.cli
-#  image: phpunit/phpunit
-  links:
-    - memcached
-    - mysql
-  volumes:
-    - /build-result/:/build-result/
-    - /var/www/jendocapp/:/app/
-  volumes_from:
-    - storage
-  env_file:
-    - etc/environment.yml
-    - etc/environment.development.yml
+  #######################################
+  # PHP CLI container for tests, builds etc.
+  #######################################
+  cli:
+    build:
+      context: .
+      dockerfile: Dockerfile.cli
+  #  image: phpunit/phpunit
+    links:
+      - memcached
+      - mysql
+    volumes:
+#      - /build-result/:/build-result/
+      - /code/application/:/app/
+    volumes_from:
+      - storage
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+
+  #######################################
+  # Container for app tests
+  #######################################
+  tests:
+    build:
+      context: ..
+      dockerfile: Dockerfile.application
+    links:
+      - memcached
+      - mysql
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
 
 
-#######################################
-# DNS for cross-container auto-discovery ( see https://github.com/tonistiigi/dnsdock )
-# Configuration: put DOCKER_OPTS="--bip=172.17.42.1/24 --dns=172.17.42.1" inside /etc/default/docker , then restart the docker deamon
-#######################################
-#dnsdock:
-#  image: tonistiigi/dnsdock
-#  volumes:
-#    - /var/run/docker.sock:/var/run/docker.sock
-#  ports:
-#    - 172.17.42.1:53:53/udp
+  #######################################
+  # DNS for cross-container auto-discovery ( see https://github.com/tonistiigi/dnsdock )
+  # Configuration: put DOCKER_OPTS="--bip=172.17.42.1/24 --dns=172.17.42.1" inside /etc/default/docker , then restart the docker deamon
+  #######################################
+  #dnsdock:
+  #  image: tonistiigi/dnsdock
+  #  volumes:
+  #    - /var/run/docker.sock:/var/run/docker.sock
+  #  ports:
+  #    - 172.17.42.1:53:53/udp
 
 
-#######################################
-# NGINX proxy for virtual hosts
-#######################################
-nginx:
-  image: jwilder/nginx-proxy
-  ports:
-    - "80:80"
-  volumes:
-    - /var/run/docker.sock:/tmp/docker.sock:ro
+  #######################################
+  # NGINX proxy for virtual hosts
+  #######################################
+  nginx:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 
 
-#######################################
-# MySQL server
-#######################################
-mysql:
-  build: docker/mysql
-  dockerfile: MySQL-5.5
-  #dockerfile: MySQL-5.6
-  #dockerfile: MySQL-5.7
-  #dockerfile: MariaDB-5.5
-  #dockerfile: MariaDB-10
-  #dockerfile: Percona-5.5
-  #dockerfile: Percona-5.6
-#  ports:
-#    - 3306:3306
-  volumes_from:
-    - storage
-  volumes:
-    - /tmp/debug/:/tmp/debug/
-    - /vagrant:/vagrant
-  env_file:
-    - etc/environment.yml
-    - etc/environment.development.yml
+  #######################################
+  # MySQL server
+  #######################################
+  mysql:
+    build:
+      context: docker/mysql
+      dockerfile: MySQL-5.5
+    #dockerfile: MySQL-5.6
+    #dockerfile: MySQL-5.7
+    #dockerfile: MariaDB-5.5
+    #dockerfile: MariaDB-10
+    #dockerfile: Percona-5.5
+    #dockerfile: Percona-5.6
+  #  ports:
+  #    - 3306:3306
+    volumes_from:
+      - storage
+    volumes:
+      - /tmp/debug/:/tmp/debug/
+      - /vagrant:/vagrant
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
 
-#######################################
-# PostgreSQL server
-#######################################
-#postgres:
-#  build: docker/postgres/
-#  ports:
-#    - 15432:5432
-#  volumes_from:
-#    - storage
-#  env_file:
-#    - etc/environment.yml
-#    - etc/environment.development.yml
+  #######################################
+  # PostgreSQL server
+  #######################################
+  #postgres:
+  #  build: docker/postgres/
+  #  ports:
+  #    - 15432:5432
+  #  volumes_from:
+  #    - storage
+  #  env_file:
+  #    - etc/environment.yml
+  #    - etc/environment.development.yml
 
-#######################################
-# Solr server
-#######################################
-#solr:
-#  build: docker/solr/
-#  ports:
-#    - 18983:8983
-#  volumes_from:
-#    - storage
-#  environment:
-#    - SOLR_STORAGE=/storage/solr/server-master/
-#  env_file:
-#    - etc/environment.yml
-#    - etc/environment.development.yml
+  #######################################
+  # Solr server
+  #######################################
+  #solr:
+  #  build: docker/solr/
+  #  ports:
+  #    - 18983:8983
+  #  volumes_from:
+  #    - storage
+  #  environment:
+  #    - SOLR_STORAGE=/storage/solr/server-master/
+  #  env_file:
+  #    - etc/environment.yml
+  #    - etc/environment.development.yml
 
-#######################################
-# Elasticsearch
-#######################################
-#elasticsearch:
-#  build: docker/elasticsearch/
-#  ports:
-#    - 19200:9200
-#    - 19300:9300
-#  volumes_from:
-#    - storage
-#  env_file:
-#    - etc/environment.yml
-#    - etc/environment.development.yml
+  #######################################
+  # Elasticsearch
+  #######################################
+  #elasticsearch:
+  #  build: docker/elasticsearch/
+  #  ports:
+  #    - 19200:9200
+  #    - 19300:9300
+  #  volumes_from:
+  #    - storage
+  #  env_file:
+  #    - etc/environment.yml
+  #    - etc/environment.development.yml
 
-#######################################
-# Redis
-#######################################
-#redis:
-#  build: docker/redis/
-#  volumes_from:
-#    - storage
-#  env_file:
-#    - etc/environment.yml
-#    - etc/environment.development.yml
+  #######################################
+  # Redis
+  #######################################
+  #redis:
+  #  build: docker/redis/
+  #  volumes_from:
+  #    - storage
+  #  env_file:
+  #    - etc/environment.yml
+  #    - etc/environment.development.yml
 
-#######################################
-# Memcached
-#######################################
-memcached:
-  build: docker/memcached/
-  volumes_from:
-    - storage
-  env_file:
-    - etc/environment.yml
-    - etc/environment.development.yml
+  #######################################
+  # Memcached
+  #######################################
+  memcached:
+    build:
+      context: docker/memcached/
+    volumes_from:
+      - storage
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
 
-#######################################
-# Mailcatcher
-#######################################
-#mail:
-#  build: docker/mail/
-#  ports:
-#    - 1080:1080
-#  env_file:
-#    - etc/environment.yml
-#    - etc/environment.development.yml
+  #######################################
+  # Mailcatcher
+  #######################################
+  #mail:
+  #  build: docker/mail/
+  #  ports:
+  #    - 1080:1080
+  #  env_file:
+  #    - etc/environment.yml
+  #    - etc/environment.development.yml
 
-#######################################
-# FTP (vsftpd)
-#######################################
-#ftp:
-#  build: docker/vsftpd/
-#  volumes_from:
-#    - storage
-#  volumes:
-#    - ./:/application/
-#  env_file:
-#    - etc/environment.yml
-#    - etc/environment.development.yml
-
-
-#######################################
-# phpMyAdmin
-#######################################
-phpmyadmin:
-  image: phpmyadmin/phpmyadmin
-  links:
-    - mysql
-  environment:
-    - PMA_ARBITRARY=1
-    - VIRTUAL_HOST=phpmyadmin.jendocapp.local
-  volumes:
-    - /sessions
+  #######################################
+  # FTP (vsftpd)
+  #######################################
+  #ftp:
+  #  build: docker/vsftpd/
+  #  volumes_from:
+  #    - storage
+  #  volumes:
+  #    - ./:/application/
+  #  env_file:
+  #    - etc/environment.yml
+  #    - etc/environment.development.yml
 
 
-#######################################
-# Jenkins (standard)
-#######################################
-#jenkins:
-#  image: jenkins
-#  environment:
-#    - VIRTUAL_HOST=jenkins.jendocapp.local
-#    - VIRTUAL_PORT=8080
-#  volumes:
-#    - /vagrant/jenkins_home:/var/jenkins_home
+  #######################################
+  # phpMyAdmin
+  #######################################
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+      - VIRTUAL_HOST=phpmyadmin.jendocapp.local
+    volumes:
+      - /sessions
 
-#######################################
-# Jenkins (Docker-In-Docker version, aka DIND)
-#######################################
-jenkins:
-  image: killercentury/jenkins-dind
-  links:
-    - nginx
-  environment:
-    - VIRTUAL_HOST=jenkins.jendocapp.local
-    - VIRTUAL_PORT=8080
-  privileged: true
-#  volumes:
-#    - /vagrant/jenkins_home:/var/jenkins_home
-#    - /vagrant/jenkins_lib:/var/lib/jenkins
 
-#######################################
-# CAdvisor
-#######################################
-#cadvisor:
-#  image: google/cadvisor
-#  environment:
-#    - VIRTUAL_HOST=cadvisor.jendocapp.local
-#    - VIRTUAL_PORT=8080
-#  privileged: true
-#  volumes:
-#    - /:/rootfs:ro
-#    - /var/run:/var/run:rw
-#    - /sys:/sys:ro
-#    - /var/lib/docker/:/var/lib/docker:ro
+  #######################################
+  # Jenkins (standard)
+  #######################################
+  #jenkins:
+  #  image: jenkins
+  #  environment:
+  #    - VIRTUAL_HOST=jenkins.jendocapp.local
+  #    - VIRTUAL_PORT=8080
+  #  volumes:
+  #    - /vagrant/jenkins_home:/var/jenkins_home
 
-#######################################
-# Storage
-#######################################
-storage:
-  build: docker/storage/
-  volumes:
-    - /docker-storage/:/storage
-#    - /var/www/jendocapp/:/app/
-#    - /var/www/jendocapp/application/:/app/
+  #######################################
+  # Jenkins (Docker-In-Docker version, aka DIND)
+  #######################################
+  jenkins:
+    image: killercentury/jenkins-dind
+    links:
+      - nginx
+    environment:
+      - VIRTUAL_HOST=jenkins.jendocapp.local
+      - VIRTUAL_PORT=8080
+    privileged: true
+  #  volumes:
+  #    - /vagrant/jenkins_home:/var/jenkins_home
+  #    - /vagrant/jenkins_lib:/var/lib/jenkins
+
+  #######################################
+  # CAdvisor
+  #######################################
+  #cadvisor:
+  #  image: google/cadvisor
+  #  environment:
+  #    - VIRTUAL_HOST=cadvisor.jendocapp.local
+  #    - VIRTUAL_PORT=8080
+  #  privileged: true
+  #  volumes:
+  #    - /:/rootfs:ro
+  #    - /var/run:/var/run:rw
+  #    - /sys:/sys:ro
+  #    - /var/lib/docker/:/var/lib/docker:ro
+
+  #######################################
+  # Storage
+  #######################################
+  storage:
+    build: docker/storage/
+    volumes:
+      - /docker-storage/:/storage
+  #    - /var/www/jendocapp/:/app/
+  #    - /var/www/jendocapp/application/:/app/

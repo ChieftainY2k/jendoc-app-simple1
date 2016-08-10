@@ -26,8 +26,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         node.vm.hostname = "www.jendocapp.local"
 
-        node.vm.synced_folder "../application", "/var/www/jendocapp"
-        node.vm.synced_folder "../docker", "/docker"
+        #node.vm.synced_folder "../application", "/var/www/jendocapp"
+        node.vm.synced_folder "../", "/code"
+
+        #node.vm.synced_folder "../docker", "/docker"
 
 
         node.vm.provision :shell, path: "bootstrap.sh"

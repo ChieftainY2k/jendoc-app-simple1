@@ -12,10 +12,11 @@ docker-compose -p $NAMESPACE stop
 docker-compose -p $NAMESPACE rm -f
 
 echo "[$NAMESPACE] Running tests..."
-docker-compose -p $NAMESPACE build cli
+docker-compose -p $NAMESPACE build tests
 #docker-compose -p $NAMESPACE run --rm cli composer install
 #docker-compose -p $NAMESPACE run --rm cli vendor/bin/phing -f build/build.xml test
-docker-compose -p $NAMESPACE run --rm cli scripts/run_tests.sh
+#docker-compose -p $NAMESPACE run --rm cli scripts/run_tests.sh
+docker-compose -p $NAMESPACE run tests scripts/run_tests.sh
 EXITCODE=$?
 
 echo "[$NAMESPACE] Cleaning up containers..."
