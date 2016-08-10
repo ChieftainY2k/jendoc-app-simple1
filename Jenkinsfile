@@ -6,8 +6,8 @@ node {
     try {
         
         stage 'Pre-flight check'
-        echo "This is a pre-flight check message."
-        sh 'env | grep MYVAR'
+        echo "This is a pre-flight check message, ENV check."
+        sh 'env'
     
         stage 'Code checkout'
         checkout scm
