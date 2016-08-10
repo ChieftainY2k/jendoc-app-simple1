@@ -5,4 +5,5 @@ node {
 
     stage 'Running tests'
     sh 'pwd'
+    sh 'ls -la'
 }
