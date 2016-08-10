@@ -23,46 +23,45 @@ See more: https://hub.docker.com/r/composer/composer/
 
 **Start up the docker containers**
 `````
-cd /docker
+cd /code/docker
 ./run_application.sh
 `````
 
 **Configure doctrine database entities**
 `````
-cd /docker
+cd /code/docker
 docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --dump-sql
 docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --force
 `````
 
-
 **Import database**
 `````
-cd /docker
-docker exec -it mysql bash
+cd /code/docker
+docker-compose exec mysql bash
 mysql -u root -pdev language < somedata.sql
 `````
 
 **Running tests in isolated container namespace**
 `````
-cd /docker
+cd /code/docker
 ./run_tests.sh
 `````
 
 **Running phing tasks in isolated container namespace**
 `````
-cd /docker
+cd /code/docker
 docker-compose -p build run --rm cli vendor/bin/phing -f build/build.xml TASK_NAME
 `````
 
 **Starting up local jenkins instance**
 `````
-cd /docker
+cd /code/docker
 ./run_jenkins
 `````
 
 **Running bash inside jenkins to fiddle around**
 `````
-cd /docker
+cd /code/docker
 docker-compose -p jenkins exec jenkins bash
 `````
 
