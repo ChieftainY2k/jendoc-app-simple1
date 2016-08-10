@@ -1,13 +1,15 @@
 node {
 
-    stage 'My stage message'
+    stage 'My fake stage message'
     echo 'foo bar test message first'
 
-    stage 'Checkout'
+    stage 'Code checkout'
     checkout scm
 
     stage 'Running tests'
-    sh 'pwd'
-    sh 'ls -la'
+    // sh 'pwd'
+    // sh 'ls -la'
+    sh 'cd docker && ./run_tests_dockerized.sh'
+    
     
 }
