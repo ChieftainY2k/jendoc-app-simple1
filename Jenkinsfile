@@ -1,16 +1,17 @@
 node {
 
     currentBuild.result = "SUCCESS"
-    //env.MYVAR = "foobar"
+    env.MYVAR = "foobar"
 
     try {
         
         stage 'Pre-flight check'
-        echo "My branch is: ${env.BRANCH_NAME}"
-        //sh 'env'
+        echo "This is a pre-flight check message."
+        sh 'env | grep MYVAR'
     
         stage 'Code checkout'
         checkout scm
+        echo "My branch is: ${env.BRANCH_NAME}"
     
         stage 'Running tests'
         // sh 'pwd'
