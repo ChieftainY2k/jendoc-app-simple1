@@ -46,7 +46,7 @@ class PageTest extends TestCase
     public function testFakeTrue()
     {
         //echo("***". __METHOD__ . "\n");
-        $this->assertEquals(1, 1);
+        $this->assertEquals(1, 0);
     }
 
     public function testCanEntityBeCreated()
