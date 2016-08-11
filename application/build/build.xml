@@ -54,7 +54,7 @@
         <echo msg="Creating database..."/>
         <exec command="vendor/bin/doctrine orm:schema-tool:update --force" dir=".." passthru="true" checkreturn="true"/>
 
-        <echo msg="Running phpunit..."/>
+        <echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>
         <phpunit
                 haltonerror="true"
                 haltonfailure="true"
@@ -63,8 +63,8 @@
                 haltonincomplete="true"
                 bootstrap="../bootstrap.php"
         >
-            <!--<formatter type="plain" usefile="false"/>-->
-            <formatter todir="${reportsDir}" type="clover"/>
+            <formatter type="plain" usefile="false"/>
+            <!--<formatter todir="${reportsDir}" type="html"/>-->
             <batchtest>
                 <fileset dir="../tests/">
                     <include name="*/*Test.php"/>
