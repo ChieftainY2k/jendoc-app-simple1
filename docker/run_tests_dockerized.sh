@@ -5,7 +5,7 @@
 #
 
 #Random namespace
-NAMESPACE=test-`date +"%Y%m%d%k%M%S"`-`shuf -i 1000-9000 -n 1`
+NAMESPACE=test-`date +"%Y%m%d%H%M%S"`-`shuf -i 1000-9000 -n 1`
 
 echo "[$NAMESPACE] Cleaning up containers..."
 docker-compose -p $NAMESPACE stop
