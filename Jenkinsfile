@@ -15,6 +15,9 @@ node {
     
         stage 'Running tests'
         sh 'cd docker && ./run_tests_dockerized.sh'
+
+        stage 'Running CloverPublisher'
+        step([$class: 'CloverPublisher', cloverReportDir: '/tmp/test-reports/', cloverReportFileName: 'clover-coverage.xml'])
         
         //stage 'Build'
         //sh 'cd docker && ./run_builds_dockerized.sh'

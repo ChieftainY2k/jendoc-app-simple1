@@ -64,6 +64,7 @@ services:
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
+      - /tmp/test-reports/:/tmp/test-reports/
 #      - /tmp/application-build/:/application-build/
     links:
       - memcached

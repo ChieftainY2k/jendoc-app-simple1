@@ -14,7 +14,7 @@ docker-compose -p $NAMESPACE rm -f
 echo "[$NAMESPACE] Building containers..."
 docker-compose -p $NAMESPACE build tests
 echo "[$NAMESPACE] Running containers with docker-compose..."
-docker-compose -p $NAMESPACE run tests scripts/run_tests.sh
+docker-compose -p $NAMESPACE run -e REPORTS_DIR="/tmp/test-reports/" tests scripts/run_tests.sh
 EXITCODE=$?
 
 echo "[$NAMESPACE] Cleaning up containers..."

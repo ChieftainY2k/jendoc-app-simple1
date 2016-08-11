@@ -3,6 +3,7 @@
 <project name="MyProject" default="build">
 
     <property name="buildDir" value="${env.BUILD_DIR}"/>
+    <property name="reportsDir" value="${env.REPORTS_DIR}"/>
 
     <fileset id="srcfiles" dir="..">
         <include name="src/**"/>
@@ -62,7 +63,8 @@
                 haltonincomplete="true"
                 bootstrap="../bootstrap.php"
         >
-            <formatter type="plain" usefile="false"/>
+            <!--<formatter type="plain" usefile="false"/>-->
+            <formatter todir="${reportsDir}" type="clover"/>
             <batchtest>
                 <fileset dir="../tests/">
                     <include name="*/*Test.php"/>
