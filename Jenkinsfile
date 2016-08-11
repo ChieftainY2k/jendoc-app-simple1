@@ -27,14 +27,14 @@ node {
         
     } catch (err) {
     
-            currentBuild.result = "FAILURE"
-    
-            mail body: "project build error: ${err}" ,
-            from: 'robot@build.local',
-            subject: 'project build failed',
-            to: 'ChieftainY2k@gmail.com'
-    
-            throw err
+        currentBuild.result = "FAILURE"
+
+        mail body: "project build error: ${err}" ,
+        from: 'robot@build.local',
+        subject: 'project build failed',
+        to: 'ChieftainY2k@gmail.com'
+
+        throw err
     }
 
     echo "RESULT: ${currentBuild.result}"

@@ -89,3 +89,9 @@ docker-compose -p jenkins exec jenkins bash
 * docker exec -it app bash
 * etc.. 
 
+
+**Removing old images**
+
+`````
+docker run -ti -v /var/run/docker.sock:/var/run/docker.sock yelp/docker-custodian dcgc --max-container-age 1day --max-image-age 1day
+`````
