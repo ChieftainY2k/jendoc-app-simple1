@@ -16,11 +16,11 @@ node {
         stage 'Running tests'
         sh 'cd docker && ./run_tests_dockerized.sh'
         
-        stage 'Build'
-        sh 'cd docker && ./run_builds_dockerized.sh'
+        //stage 'Build'
+        //sh 'cd docker && ./run_builds_dockerized.sh'
 
-        stage 'Post-test check'
-        echo 'This is a fake post-test message'
+        stage 'Post-stage check'
+        echo 'This is a fake post-stage message'
         
     } catch (err) {
     
@@ -32,6 +32,8 @@ node {
             to: 'ChieftainY2k@gmail.com'
     
             throw err
-    }        
+    }
+
+    echo "RESULT: ${currentBuild.result}"
 
 }
