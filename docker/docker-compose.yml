@@ -64,9 +64,28 @@ services:
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
+#      - /tmp/application-build/:/application-build/
     links:
       - memcached
       - mysql
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+
+
+  #######################################
+  # Container for app builds
+  #######################################
+  builds:
+    build:
+      context: ..
+      dockerfile: Dockerfile.app.tests
+    volumes:
+#      - /build-result/:/build-result/
+      - /tmp/composer-cache/:/tmp/composer-cache/
+#    links:
+#      - memcached
+#      - mysql
     env_file:
       - etc/environment.yml
       - etc/environment.development.yml

@@ -4,17 +4,19 @@
 # Run tests inside disposable container structure
 #
 
+BUILD_DIR=/tmp/build/
+
 #Random namespace
-NAMESPACE=test-`date +"%Y%m%d%H%M%S"`-`shuf -i 1000-9000 -n 1`
+NAMESPACE=build-`date +"%Y%m%d%H%M%S"`-`shuf -i 1000-9000 -n 1`
 
 echo "[$NAMESPACE] Cleaning up containers..."
 docker-compose -p $NAMESPACE stop
 docker-compose -p $NAMESPACE rm -f
 
 echo "[$NAMESPACE] Building containers..."
-docker-compose -p $NAMESPACE build tests
-echo "[$NAMESPACE] Running containers with docker-compose..."
-docker-compose -p $NAMESPACE run tests scripts/run_tests.sh
+docker-compose -p $NAMESPACE build builds
+echo "[$NAMESPACE] Running containers with docker-compose (BUILD_DIR = $BUILD_DIR)..."
+docker-compose -p $NAMESPACE run -e BUILD_DIR=$BUILD_DIR builds scripts/run_builds.sh
 EXITCODE=$?
 
 echo "[$NAMESPACE] Cleaning up containers..."

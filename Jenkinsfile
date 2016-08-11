@@ -14,10 +14,11 @@ node {
         echo "My branch is: ${env.BRANCH_NAME}"
     
         stage 'Running tests'
-        // sh 'pwd'
-        // sh 'ls -la'
         sh 'cd docker && ./run_tests_dockerized.sh'
         
+        stage 'Build'
+        sh 'cd docker && ./run_builds_dockerized.sh'
+
         stage 'Post-test check'
         echo 'This is a fake post-test message'
         
