@@ -47,7 +47,7 @@
 
     <target name="waitForFrontendApp">
         <echo msg="Waiting for application to start up..."/>
-        <exec command="CONN_ADDR=localhost CONN_PORT=80 ./scripts/wait_for_connection.sh" dir=".." passthru="true" checkreturn="true"/>
+        <exec command="CONN_ADDR=app CONN_PORT=80 ./scripts/wait_for_connection.sh" dir=".." passthru="true" checkreturn="true"/>
     </target>
 
     <target name="test:all" description="Runs all tests" depends="test:smoke, test:database">
