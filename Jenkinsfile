@@ -29,10 +29,10 @@ node {
     
         currentBuild.result = "FAILURE"
 
-        mail body: "project build error: ${err}" ,
-        from: 'robot@build.local',
-        subject: 'project build failed',
-        to: 'ChieftainY2k@gmail.com'
+        //mail body: "project build error: ${err}" ,
+        //from: 'robot@build.local',
+        //subject: 'project build failed',
+        //to: 'ChieftainY2k@gmail.com'
 
         throw err
     }

@@ -273,7 +273,8 @@ services:
       - VIRTUAL_HOST=jenkins.jendocapp.local
       - VIRTUAL_PORT=8080
     privileged: true
-  #  volumes:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   #    - /vagrant/jenkins_home:/var/jenkins_home
   #    - /vagrant/jenkins_lib:/var/lib/jenkins
 
