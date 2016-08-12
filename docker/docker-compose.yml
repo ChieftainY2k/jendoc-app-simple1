@@ -57,7 +57,7 @@ services:
   #######################################
   # Container for app tests
   #######################################
-  tests:
+  tester:
     build:
       context: ..
       dockerfile: Dockerfile.app.tests
@@ -77,7 +77,7 @@ services:
   #######################################
   # Container for app builds
   #######################################
-  builds:
+  builder:
     build:
       context: ..
       dockerfile: Dockerfile.app.tests
