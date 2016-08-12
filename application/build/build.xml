@@ -32,24 +32,51 @@
 
     <target name="clean">
         <echo msg="Cleaning build directory..."/>
-        <delete dir="${buildDir}" includeemptydirs="true" verbose="true" failonerror="true" quiet="true" />
+        <delete dir="${buildDir}" includeemptydirs="true" verbose="true" failonerror="true" quiet="true"/>
     </target>
 
-    <target name="deploy" depends="test,build">
+    <target name="deploy" depends="test:database,build">
         <echo msg="Deploying project..."/>
     </target>
 
-    <target name="test" description="Runs tests" depends="phpunit">
-        <!--<echo msg="A fake test message!" />-->
+    <target name="waitForServices">
+        <echo msg="Waiting for services to start up..."/>
+        <exec command="CONN_ADDR=mysql CONN_PORT=3306 ./scripts/wait_for_connection.sh" dir=".." passthru="true" checkreturn="true"/>
+        <exec command="CONN_ADDR=memcached CONN_PORT=11211 ./scripts/wait_for_connection.sh" dir=".." passthru="true" checkreturn="true"/>
     </target>
 
-    <target name="phpunit" description="Runs phpunit tests">
+    <target name="waitForFrontendApp">
+        <echo msg="Waiting for application to start up..."/>
+        <exec command="CONN_ADDR=localhost CONN_PORT=80 ./scripts/wait_for_connection.sh" dir=".." passthru="true" checkreturn="true"/>
+    </target>
 
-        <echo msg="Waiting for services..."/>
-        <exec command="scripts/wait_for_services.sh" dir=".." passthru="true" checkreturn="true"/>
+    <target name="test:all" description="Runs all tests" depends="test:smoke, test:database">
+    </target>
 
-        <!--<echo msg="Executing composer..."/>-->
-        <!--<exec command="COMPOSER_CACHE_DIR=/tmp/composer-cache/ composer install" dir="${buildDir}" passthru="true" checkreturn="true"/>-->
+    <target name="test:smoke" description="Runs smoke tests against application" depends="waitForFrontendApp">
+
+        <echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>
+        <phpunit
+                haltonerror="true"
+                haltonfailure="true"
+                printsummary="true"
+                haltonskipped="true"
+                haltonincomplete="true"
+                bootstrap="../bootstrap.php"
+        >
+            <formatter type="plain" usefile="false"/>
+            <!--<formatter todir="${reportsDir}" type="html"/>-->
+            <batchtest>
+                <fileset dir="../tests/SmokeTests/">
+                    <include name="*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+
+
+    </target>
+
+    <target name="test:database" description="Runs database test" depends="waitForServices">
 
         <echo msg="Creating database..."/>
         <exec command="vendor/bin/doctrine orm:schema-tool:update --force" dir=".." passthru="true" checkreturn="true"/>
@@ -66,8 +93,8 @@
             <formatter type="plain" usefile="false"/>
             <!--<formatter todir="${reportsDir}" type="html"/>-->
             <batchtest>
-                <fileset dir="../tests/">
-                    <include name="*/*Test.php"/>
+                <fileset dir="../tests/DatabaseTests/">
+                    <include name="*Test.php"/>
                 </fileset>
             </batchtest>
         </phpunit>

@@ -55,8 +55,7 @@ RUN /opt/docker/bin/provision add --tag bootstrap --tag entrypoint boilerplate-m
     && /opt/docker/bin/bootstrap.sh
 
 # Update APT, install tools
-RUN apt-get update \
-    && apt-get -y install mc joe php5-xcache
+RUN apt-get update && apt-get -y install mc joe php5-xcache netcat
 
 # Configure volume/workdir
 RUN mkdir -p /app/

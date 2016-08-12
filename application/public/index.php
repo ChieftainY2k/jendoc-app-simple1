@@ -4,7 +4,13 @@
  */
 use MyApplication\Config;
 
-require(__DIR__."/../bootstrap.php");
+require(__DIR__ . "/../bootstrap.php");
+
+//smoke test
+if ($_GET['smoketest'] == 1) {
+    echo  "SMOKE TEST OK";
+    exit;
+}
 
 echo "Hello world! My name is " . Config::getConfig()['appName'] . "<hr>";
 

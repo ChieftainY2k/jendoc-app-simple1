@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Simple demo tests
  */
-class PageTest extends TestCase
+class DoctrineTest extends TestCase
 {
     //public static function setUpBeforeClass()
     //{

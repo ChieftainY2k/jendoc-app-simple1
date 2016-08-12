@@ -2,6 +2,20 @@ version: '2'
 
 services:
 
+
+  #######################################
+  # Local development environment
+  #######################################
+  localdevelopment:
+    image: busybox
+    links:
+      - app
+      - memcached
+      - mysql
+      - nginx
+      - phpmyadmin
+      - jenkins
+
   #######################################
   # PHP application Docker container
   #######################################
@@ -9,11 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app.development
-    links:
-      - memcached
-      - mysql
-      - nginx
-      - phpmyadmin
+#    links:
       #- postgres
       #- mail
       #- solr
@@ -32,7 +42,6 @@ services:
       - WEB_DOCUMENT_ROOT=/app/public
       - VIRTUAL_HOST=www.jendocapp.local
   #    - DNSDOCK_ALIAS=admin.jendocapp.pl.local
-
 
   #######################################
   # PHP CLI container for tests, builds etc.
@@ -60,7 +69,27 @@ services:
   tester:
     build:
       context: ..
-      dockerfile: Dockerfile.app.tests
+      dockerfile: Dockerfile.app.tester
+    volumes:
+#      - /build-result/:/build-result/
+      - /tmp/composer-cache/:/tmp/composer-cache/
+      - /tmp/test-reports/:/tmp/test-reports/
+#      - /tmp/application-build/:/application-build/
+    links:
+      - app
+      - memcached
+      - mysql
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+
+  #######################################
+  # Container for app tests
+  #######################################
+  testersmoke:
+    build:
+      context: ..
+      dockerfile: Dockerfile.app.tester
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
