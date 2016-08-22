@@ -304,8 +304,8 @@ services:
     privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  #    - /vagrant/jenkins_home:/var/jenkins_home
-  #    - /vagrant/jenkins_lib:/var/lib/jenkins
+      - /jenkins_home:/var/jenkins_home
+      - /jenkins_lib:/var/lib/jenkins
 
   #######################################
   # CAdvisor
