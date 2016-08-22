@@ -18,12 +18,12 @@
 
         <echo msg="Building project..."/>
 
-        <mkdir dir="${buildDir}"/>
+        <!--<mkdir dir="${buildDir}"/>-->
 
-        <echo msg="Copying files..."/>
-        <copy todir="${buildDir}">
-            <fileset refid="srcfiles"/>
-        </copy>
+        <!--<echo msg="Copying files..."/>-->
+        <!--<copy todir="${buildDir}">-->
+            <!--<fileset refid="srcfiles"/>-->
+        <!--</copy>-->
 
         <!--<echo msg="Executing composer..."/>-->
         <!--<exec command="COMPOSER_CACHE_DIR=/tmp/composer-cache/ composer install" dir="${buildDir}" passthru="true" checkreturn="true"/>-->

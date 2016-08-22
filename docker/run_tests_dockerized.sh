@@ -14,8 +14,13 @@ docker-compose -p $NAMESPACE rm -f
 echo "[$NAMESPACE] Building containers..."
 docker-compose -p $NAMESPACE build tester
 echo "[$NAMESPACE] Running containers with docker-compose..."
-docker-compose -p $NAMESPACE run -e COMPOSER_CACHE_DIR="/tmp/composer-cache/" app composer install
-docker-compose -p $NAMESPACE run -e REPORTS_DIR="/tmp/test-reports/" tester scripts/run_tests.sh
+
+#docker-compose -p $NAMESPACE run -e COMPOSER_CACHE_DIR="/tmp/composer-cache/" app composer install
+#docker-compose -p $NAMESPACE run -e REPORTS_DIR="/tmp/test-reports/" tester scripts/run_tests.sh
+
+docker-compose -p $NAMESPACE run app scripts/run_builds.sh
+docker-compose -p $NAMESPACE run tester scripts/run_tests.sh
+
 EXITCODE=$?
 
 echo "[$NAMESPACE] Cleaning up containers..."

@@ -32,6 +32,7 @@ services:
       #- ftp
     volumes:
       - ../application/:/app/
+      - /tmp/composer-cache/:/tmp/composer-cache/
     volumes_from:
       - storage
     env_file:
