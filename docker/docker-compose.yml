@@ -2,7 +2,6 @@ version: '2'
 
 services:
 
-
   #######################################
   # Local development environment
   #######################################
@@ -50,6 +49,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app.cli
+  #  image: phpunit/phpunit
   #  image: phpunit/phpunit
     links:
       - memcached
@@ -109,7 +109,7 @@ services:
   builder:
     build:
       context: ..
-      dockerfile: Dockerfile.app.tests
+      dockerfile: Dockerfile.app.builder
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
