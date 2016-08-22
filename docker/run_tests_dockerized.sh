@@ -18,7 +18,9 @@ echo "[$NAMESPACE] Running containers with docker-compose..."
 #docker-compose -p $NAMESPACE run -e COMPOSER_CACHE_DIR="/tmp/composer-cache/" app composer install
 #docker-compose -p $NAMESPACE run -e REPORTS_DIR="/tmp/test-reports/" tester scripts/run_tests.sh
 
+#build app
 docker-compose -p $NAMESPACE run app scripts/run_builds.sh
+#test with external tester
 docker-compose -p $NAMESPACE run tester scripts/run_tests.sh
 
 EXITCODE=$?

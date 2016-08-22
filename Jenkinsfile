@@ -19,10 +19,10 @@ node {
         //stage 'Running CloverPublisher'
         //step([$class: 'CloverPublisher', cloverReportDir: '/tmp/test-reports/', cloverReportFileName: 'clover-coverage.xml'])
         
-        stage 'Build'
-        sh 'cd docker && ./run_builds_dockerized.sh'
+        //stage 'Build'
+        //sh 'cd docker && ./run_builds_dockerized.sh'
 
-        stage 'Post-stage check'
+        stage 'Post-pipeline check'
         echo 'This is a fake post-stage message'
         
     } catch (err) {
