@@ -14,7 +14,7 @@ node {
         echo "My branch is: ${env.BRANCH_NAME}"
     
         stage 'Running tests'
-        sh 'cd docker && ./run_tests_dockerized.sh'
+        sh 'cd docker && TEST_TYPE=unit ./run_tests_dockerized.sh'
 
         //stage 'Running CloverPublisher'
         //step([$class: 'CloverPublisher', cloverReportDir: '/tmp/test-reports/', cloverReportFileName: 'clover-coverage.xml'])
