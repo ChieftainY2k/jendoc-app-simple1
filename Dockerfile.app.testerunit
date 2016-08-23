@@ -1,0 +1,10 @@
+#
+# Creates image with application inside, for tests
+#
+
+FROM webdevops/php-apache-dev:ubuntu-15.10
+
+COPY ./application /application
+
+WORKDIR /application
+

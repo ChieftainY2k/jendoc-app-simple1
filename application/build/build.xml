@@ -71,7 +71,26 @@
     <target name="test:all" description="Runs all tests" depends="test:smoke, test:database">
     </target>
 
-    <target name="test:smoke" description="Runs smoke tests against application" depends="waitForFrontendApp">
+    <target name="test:unit" description="Runs simple unit tests">
+        <phpunit
+                haltonerror="true"
+                haltonfailure="true"
+                printsummary="true"
+                haltonskipped="true"
+                haltonincomplete="true"
+                bootstrap="../bootstrap.php"
+        >
+            <formatter type="plain" usefile="false"/>
+            <!--<formatter todir="${reportsDir}" type="html"/>-->
+            <batchtest>
+                <fileset dir="../tests/UnitTests/">
+                    <include name="*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="test:smoke" description="Runs smoke tests with HTTP against application" depends="waitForFrontendApp">
 
         <!--<echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>-->
         <phpunit

@@ -10,4 +10,3 @@ COPY ./application /application
 
 WORKDIR /application
 
-

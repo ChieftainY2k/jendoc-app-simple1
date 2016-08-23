@@ -98,16 +98,16 @@ services:
   testerunit:
     build:
       context: ..
-      dockerfile: Dockerfile.app.tester
+      dockerfile: Dockerfile.app.testerunit
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
-      - /tmp/test-reports/:/tmp/test-reports/
+#      - /tmp/test-reports/:/tmp/test-reports/
 #      - /tmp/application-build/:/application-build/
-    links:
-      - app
-      - memcached
-      - mysql
+#    links:
+#      - appfortests
+#      - memcached
+#      - mysql
     env_file:
       - etc/environment.yml
       - etc/environment.development.yml
@@ -122,7 +122,7 @@ services:
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
-      - /tmp/test-reports/:/tmp/test-reports/
+#      - /tmp/test-reports/:/tmp/test-reports/
 #      - /tmp/application-build/:/application-build/
     links:
       - memcached
