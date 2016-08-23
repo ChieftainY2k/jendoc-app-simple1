@@ -48,7 +48,7 @@ services:
   appfortests:
     build:
       context: ..
-      dockerfile: Dockerfile.app.fortests
+      dockerfile: docker/Dockerfile.app.fortests
 #    links:
       #- postgres
       #- mail
@@ -97,7 +97,7 @@ services:
   testerunit:
     build:
       context: ..
-      dockerfile: Dockerfile.app.testerunit
+      dockerfile: docker/Dockerfile.app.testerunit
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
@@ -117,7 +117,7 @@ services:
   testersmoke:
     build:
       context: ..
-      dockerfile: Dockerfile.app.testersmoke
+      dockerfile: docker/Dockerfile.app.testersmoke
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
@@ -138,7 +138,7 @@ services:
   builder:
     build:
       context: ..
-      dockerfile: Dockerfile.app.builder
+      dockerfile: docker/Dockerfile.app.builder
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
