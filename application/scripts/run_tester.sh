@@ -7,8 +7,12 @@
 #
 
 # Install libraries
-COMPOSER_CACHE_DIR=/tmp/composer-cache/ composer install
+#COMPOSER_CACHE_DIR=/tmp/composer-cache/ composer install
 
 # Run test with phing tasks
 vendor/bin/phing -f build/build.xml test:all
+
+EXITCODE=$?
+echo "Phing exit code is $EXITCODE"
+exit $EXITCODE
 

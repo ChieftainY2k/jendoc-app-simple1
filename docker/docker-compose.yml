@@ -8,7 +8,7 @@ services:
   localdevelopment:
     image: busybox
     links:
-      - app
+      - appdevelopment
       - memcached
       - mysql
       - nginx
@@ -16,9 +16,9 @@ services:
       - jenkins
 
   #######################################
-  # PHP application Docker container
+  # PHP application for local development
   #######################################
-  app:
+  appdevelopment:
     build:
       context: .
       dockerfile: Dockerfile.app.development
@@ -32,6 +32,34 @@ services:
       #- ftp
     volumes:
       - ../application/:/app/
+      - /tmp/composer-cache/:/tmp/composer-cache/
+    volumes_from:
+      - storage
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=www.jendocapp.local
+  #    - DNSDOCK_ALIAS=admin.jendocapp.pl.local
+
+  #######################################
+  # PHP application ready to be tested
+  #######################################
+  appfortests:
+    build:
+      context: ..
+      dockerfile: Dockerfile.app.fortests
+#    links:
+      #- postgres
+      #- mail
+      #- solr
+      #- elasticsearch
+      #- redis
+      #- memcached
+      #- ftp
+    volumes:
+#      - ../application/:/app/
       - /tmp/composer-cache/:/tmp/composer-cache/
     volumes_from:
       - storage
@@ -67,7 +95,7 @@ services:
   #######################################
   # Container for app tests
   #######################################
-  tester:
+  testerunit:
     build:
       context: ..
       dockerfile: Dockerfile.app.tester

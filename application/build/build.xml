@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="MyProject" default="build">
+<project name="MyProject" default="nothing">
 
-    <property name="buildDir" value="${env.BUILD_DIR}"/>
-    <property name="reportsDir" value="${env.REPORTS_DIR}"/>
+    <!--<property name="buildDir" value="${env.BUILD_DIR}"/>-->
+    <!--<property name="reportsDir" value="${env.REPORTS_DIR}"/>-->
 
     <fileset id="srcfiles" dir="..">
         <include name="src/**"/>
@@ -14,9 +14,9 @@
         <exclude name="*.tmp"/>
     </fileset>
 
-    <target name="build">
+    <target name="build:fordeploy">
 
-        <echo msg="Building project..."/>
+        <echo msg="Building application for deployment..."/>
 
         <!--<mkdir dir="${buildDir}"/>-->
 
@@ -30,14 +30,32 @@
 
     </target>
 
-    <target name="clean">
-        <echo msg="Cleaning build directory..."/>
-        <delete dir="${buildDir}" includeemptydirs="true" verbose="true" failonerror="true" quiet="true"/>
+    <target name="nothing">
+
+        <echo msg="Doing nothing..."/>
+
     </target>
 
-    <target name="deploy" depends="test:database,build">
-        <echo msg="Deploying project..."/>
+    <target name="build:application">
+
+        <echo msg="Building application..."/>
+
     </target>
+
+    <target name="build:tester">
+
+        <echo msg="Building tester..."/>
+
+    </target>
+
+    <!--<target name="clean">-->
+        <!--<echo msg="Cleaning build directory..."/>-->
+        <!--<delete dir="${buildDir}" includeemptydirs="true" verbose="true" failonerror="true" quiet="true"/>-->
+    <!--</target>-->
+
+    <!--<target name="deploy" depends="build:fordeploy">-->
+        <!--<echo msg="Deploying project..."/>-->
+    <!--</target>-->
 
     <target name="waitForServices">
         <echo msg="Waiting for services to start up..."/>
@@ -55,7 +73,7 @@
 
     <target name="test:smoke" description="Runs smoke tests against application" depends="waitForFrontendApp">
 
-        <echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>
+        <!--<echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>-->
         <phpunit
                 haltonerror="true"
                 haltonfailure="true"
@@ -81,7 +99,7 @@
         <echo msg="Creating database..."/>
         <exec command="vendor/bin/doctrine orm:schema-tool:update --force" dir=".." passthru="true" checkreturn="true"/>
 
-        <echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>
+        <!--<echo msg="Running phpunit ( reportsDir = ${reportsDir} )..."/>-->
         <phpunit
                 haltonerror="true"
                 haltonfailure="true"
