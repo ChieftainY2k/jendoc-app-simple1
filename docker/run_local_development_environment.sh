@@ -8,4 +8,4 @@
 #NAMESPACE=application
 #docker-compose -p $NAMESPACE up -d app
 
-docker-compose -p localdevelopment up -d localdevelopment
+docker-compose -p localdevelopment up -d appdevelopment

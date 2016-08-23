@@ -7,8 +7,8 @@ use MyApplication\Config;
 require(__DIR__ . "/../bootstrap.php");
 
 //smoke test
-if ($_GET['smoketest'] == 1) {
-    echo  "SMOKE TEST OK";
+if (isset($_GET['smoketest'])) {
+    echo "SMOKE TEST OK";
     exit;
 }
 

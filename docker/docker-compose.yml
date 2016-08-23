@@ -2,18 +2,18 @@ version: '2'
 
 services:
 
-  #######################################
-  # Local development environment
-  #######################################
-  localdevelopment:
-    image: busybox
-    links:
-      - appdevelopment
-      - memcached
-      - mysql
-      - nginx
-      - phpmyadmin
-      - jenkins
+#  #######################################
+#  # Local development environment
+#  #######################################
+#  localdevelopment:
+#    image: busybox
+#    links:
+#      - appdevelopment
+#      - memcached
+#      - mysql
+#      - nginx
+#      - phpmyadmin
+#      - jenkins
 
   #######################################
   # PHP application for local development
@@ -22,14 +22,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app.development
-#    links:
-      #- postgres
-      #- mail
-      #- solr
-      #- elasticsearch
-      #- redis
-      #- memcached
-      #- ftp
+    links:
+      - memcached
+      - mysql
+      - nginx
+      - phpmyadmin
+#      - jenkins
+
     volumes:
       - ../application/:/app/
       - /tmp/composer-cache/:/tmp/composer-cache/
