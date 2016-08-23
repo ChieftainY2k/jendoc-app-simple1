@@ -14,7 +14,7 @@ class HttpResponsesTest extends TestCase
     {
         $ch = curl_init();
         $timeout = 5;
-        curl_setopt($ch, CURLOPT_URL, "http://app?smoketest=1");
+        curl_setopt($ch, CURLOPT_URL, "http://appfortests?smoketest=1");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
         $data = curl_exec($ch);

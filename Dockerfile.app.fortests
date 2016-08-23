@@ -48,8 +48,8 @@ FROM webdevops/php-apache-dev:ubuntu-15.10
 ENV PROVISION_CONTEXT "development"
 
 # Deploy scripts/configurations
-COPY etc/             /opt/docker/etc/
-COPY provision/       /opt/docker/provision/
+COPY docker/etc/             /opt/docker/etc/
+COPY docker/provision/       /opt/docker/provision/
 
 RUN /opt/docker/bin/provision add --tag bootstrap --tag entrypoint boilerplate-main boilerplate-main-development boilerplate-deployment \
     && /opt/docker/bin/bootstrap.sh
@@ -60,7 +60,7 @@ RUN apt-get update && apt-get -y install mc joe php5-xcache netcat
 # Configure volume/workdir
 RUN mkdir -p /app/
 
-COPY ./app /app
+COPY ./application /app
 WORKDIR /app
 
 RUN scripts/build_application.sh

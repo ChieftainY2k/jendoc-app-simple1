@@ -8,11 +8,13 @@ class UnitTest extends TestCase
 {
 
     /**
-     * test something as units
+     * test something as a unit test
      */
     public function testSomething()
     {
-        $this->assertEquals(1,1);
+        $page = new \MyApplication\Entity\Page();
+        $page->setTitle($foo = "foo");
+        $this->assertEquals($foo, $page->getTitle());
     }
 
 }

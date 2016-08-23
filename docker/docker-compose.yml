@@ -118,13 +118,14 @@ services:
   testersmoke:
     build:
       context: ..
-      dockerfile: Dockerfile.app.tester
+      dockerfile: Dockerfile.app.testersmoke
     volumes:
 #      - /build-result/:/build-result/
       - /tmp/composer-cache/:/tmp/composer-cache/
 #      - /tmp/test-reports/:/tmp/test-reports/
 #      - /tmp/application-build/:/application-build/
     links:
+      - appfortests
       - memcached
       - mysql
     env_file:
