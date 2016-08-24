@@ -1,5 +1,10 @@
 #!groovy​
 
+#
+# Branch strategies, see example: https://github.com/ForgeRock/openam-cidemo/blob/master/Jenkinsfile
+#
+
+
 node("master") {
 
     currentBuild.result = "SUCCESS"
