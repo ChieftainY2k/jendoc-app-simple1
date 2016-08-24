@@ -28,14 +28,14 @@ node("master") {
             },
             "Smoke tests":{
                 node {
-                    unstash "appcode"
-                    sh 'cd docker && TEST_TYPE=smoke ./run_tester_dockerized.sh'
+                    //unstash "appcode"
+                    //sh 'cd docker && TEST_TYPE=smoke ./run_tester_dockerized.sh'
                 }
             },
             "Database tests":{
                 node {
-                    unstash "appcode"
-                    sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
+                    //unstash "appcode"
+                    //sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
                 }
             }
         )
