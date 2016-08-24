@@ -16,6 +16,7 @@ node("master") {
         //stage 'Fail tests'
         //sh 'domething to fail'
 
+        stage 'Parallel tests'
         parallel (
             "Unit tests":{
                 node {
