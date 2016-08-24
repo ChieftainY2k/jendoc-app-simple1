@@ -11,10 +11,16 @@ node {
     
         stage 'Code checkout'
         checkout scm
-        echo "My branch is: ${env.BRANCH_NAME}"
+        //echo "My branch is: ${env.BRANCH_NAME}"
     
-        stage 'Running tests'
+        stage 'Unit tests'
         sh 'cd docker && TEST_TYPE=unit ./run_tester_dockerized.sh'
+
+        stage 'Smoke tests'
+        sh 'cd docker && TEST_TYPE=smoke ./run_tester_dockerized.sh'
+
+        stage 'Database tests'
+        sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
 
         //stage 'Running CloverPublisher'
         //step([$class: 'CloverPublisher', cloverReportDir: '/tmp/test-reports/', cloverReportFileName: 'clover-coverage.xml'])

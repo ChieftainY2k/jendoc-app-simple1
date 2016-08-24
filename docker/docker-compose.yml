@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile.app.development
     links:
-      - memcached
+#      - memcached
       - mysql
       - nginx
       - phpmyadmin
@@ -80,7 +80,7 @@ services:
   #  image: phpunit/phpunit
   #  image: phpunit/phpunit
     links:
-      - memcached
+#      - memcached
       - mysql
     volumes:
 #      - /build-result/:/build-result/
@@ -92,7 +92,7 @@ services:
       - etc/environment.development.yml
 
   #######################################
-  # Container for app tests
+  # Container for tester
   #######################################
   testerunit:
     build:
@@ -112,7 +112,7 @@ services:
       - etc/environment.development.yml
 
   #######################################
-  # Container for app tests
+  # Container for tester
   #######################################
   testersmoke:
     build:
@@ -125,7 +125,28 @@ services:
 #      - /tmp/application-build/:/application-build/
     links:
       - appfortests
-      - memcached
+#      - memcached
+      - mysql
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+
+
+  #######################################
+  # Container for tester
+  #######################################
+  testerdatabase:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.app.testerdatabase
+    volumes:
+#      - /build-result/:/build-result/
+      - /tmp/composer-cache/:/tmp/composer-cache/
+#      - /tmp/test-reports/:/tmp/test-reports/
+#      - /tmp/application-build/:/application-build/
+    links:
+#      - appfortests
+#      - memcached
       - mysql
     env_file:
       - etc/environment.yml
@@ -250,17 +271,17 @@ services:
   #    - etc/environment.yml
   #    - etc/environment.development.yml
 
-  #######################################
-  # Memcached
-  #######################################
-  memcached:
-    build:
-      context: docker/memcached/
-    volumes_from:
-      - storage
-    env_file:
-      - etc/environment.yml
-      - etc/environment.development.yml
+#  #######################################
+#  # Memcached
+#  #######################################
+#  memcached:
+#    build:
+#      context: docker/memcached/
+#    volumes_from:
+#      - storage
+#    env_file:
+#      - etc/environment.yml
+#      - etc/environment.development.yml
 
   #######################################
   # Mailcatcher
