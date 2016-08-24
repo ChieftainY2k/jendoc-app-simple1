@@ -38,7 +38,7 @@ node("master") {
     
         currentBuild.result = "FAILURE"
 
-        subject: "[FAIL] Build ${env.BUILD_NUMBER} for job '${env.JOB_NAME}' FAILED",
+        subject: "[FAIL] Build ${env.BUILD_NUMBER} for job ${env.JOB_NAME} FAILED",
         mail body: "Build ${env.BUILD_NUMBER} FAILED, see ${env.BUILD_URL}" ,
         from: "robot@build.local",
         to: "ChieftainY2k@gmail.com"
@@ -46,7 +46,7 @@ node("master") {
         throw err
     }
 
-    subject: "[SUCCESS] Build ${env.BUILD_NUMBER} for job '${env.JOB_NAME}' SUCCESSFUL",
+    subject: "[SUCCESS] Build ${env.BUILD_NUMBER} for job ${env.JOB_NAME} SUCCESSFUL",
     from: 'robot@build.local',
     mail body: "Build ${env.BUILD_NUMBER} was SUCCESSFUL, see ${env.BUILD_URL}" ,
     to: 'ChieftainY2k@gmail.com'
