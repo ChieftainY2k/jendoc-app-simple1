@@ -9,10 +9,10 @@ node("master") {
         echo "This is a pre-flight check message, ENV check."
         sh 'env'
     
-        //stage 'Code checkout'
-        //checkout scm
-        //echo "My branch is: ${env.BRANCH_NAME}"
-    
+        stage 'Code checkout'
+        checkout scm
+        stash name: "appcode"
+
         //stage 'Fail tests'
         //sh 'domething to fail'
 
@@ -20,19 +20,19 @@ node("master") {
         parallel (
             "Unit tests":{
                 node {
-                    checkout scm
+                    unstash "appcode"
                     sh 'cd docker && TEST_TYPE=unit ./run_tester_dockerized.sh'
                 }
             },
             "Smoke tests":{
                 node {
-                    checkout scm
+                    unstash "appcode"
                     sh 'cd docker && TEST_TYPE=smoke ./run_tester_dockerized.sh'
                 }
             },
             "Database tests":{
                 node {
-                    checkout scm
+                    unstash "appcode"
                     sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
                 }
             }
