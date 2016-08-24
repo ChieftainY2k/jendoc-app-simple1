@@ -38,20 +38,19 @@ node("master") {
     
         currentBuild.result = "FAILURE"
 
-        mail body: "project build FAILED, see ${env.BUILD_URL}" ,
+        subject: "[FAIL] Build ${env.BUILD_NUMBER} for job '${env.JOB_NAME}' FAILED",
+        mail body: "Build ${env.BUILD_NUMBER} FAILED, see ${env.BUILD_URL}" ,
         from: "robot@build.local",
-        subject: "Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) FAILED.",
         to: "ChieftainY2k@gmail.com"
 
         throw err
     }
 
-    mail body: "project build success" ,
+    subject: "[SUCCESS] Build ${env.BUILD_NUMBER} for job '${env.JOB_NAME}' SUCCESSFUL",
     from: 'robot@build.local',
-    subject: 'project build SUCCESS',
+    mail body: "Build ${env.BUILD_NUMBER} was SUCCESSFUL, see ${env.BUILD_URL}" ,
     to: 'ChieftainY2k@gmail.com'
 
-
-    echo "RESULT: ${currentBuild.result}"
+    echo "BUILD RESULT: ${currentBuild.result}"
 
 }
