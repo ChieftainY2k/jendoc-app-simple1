@@ -2,9 +2,7 @@
 # Creates image with application inside, for tests
 #
 
-FROM webdevops/php-apache-dev:ubuntu-15.10
-
-RUN apt-get -u update && apt-get -y install netcat
+FROM webdevops/php:ubuntu-15.04
 
 COPY ./application /application
 
