@@ -1,4 +1,4 @@
-node {
+node("master") {
 
     currentBuild.result = "SUCCESS"
     env.MYVAR = "foobar"
@@ -39,9 +39,9 @@ node {
         currentBuild.result = "FAILURE"
 
         mail body: "project build FAILED, see ${env.BUILD_URL}" ,
-        from: 'robot@build.local',
-        subject: 'Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) FAILED.',
-        to: 'ChieftainY2k@gmail.com'
+        from: "robot@build.local",
+        subject: "Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) FAILED.",
+        to: "ChieftainY2k@gmail.com"
 
         throw err
     }
