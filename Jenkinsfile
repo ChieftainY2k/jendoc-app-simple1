@@ -1,3 +1,5 @@
+#!groovy​
+
 node("master") {
 
     currentBuild.result = "SUCCESS"
