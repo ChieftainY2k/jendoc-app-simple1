@@ -13,8 +13,8 @@ node("master") {
         checkout scm
         //echo "My branch is: ${env.BRANCH_NAME}"
     
-        stage 'Fail tests'
-        sh 'domething to fail'
+        //stage 'Fail tests'
+        //sh 'domething to fail'
 
         stage 'Unit tests'
         sh 'cd docker && TEST_TYPE=unit ./run_tester_dockerized.sh'
