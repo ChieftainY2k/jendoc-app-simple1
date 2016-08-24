@@ -43,7 +43,7 @@ node("master") {
 //            body: "Build ${env.BUILD_NUMBER} FAILED, see ${env.BUILD_URL}" ,
 //            from: "robot@build.local",
 //            to: "ChieftainY2k@gmail.com"
-        );
+//        );
 
         throw err
     }
