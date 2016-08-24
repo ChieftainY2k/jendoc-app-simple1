@@ -39,9 +39,8 @@ docker-compose -p $NAMESPACE run -e TEST_TYPE="$TEST_TYPE" $TESTERNAME scripts/r
 
 EXITCODE=$?
 
-echo "[$NAMESPACE][$TEST_TYPE] Cleaning up containers..."
-docker-compose -p $NAMESPACE stop
-docker-compose -p $NAMESPACE rm -f
+echo "[$NAMESPACE][$TEST_TYPE] Stopping containers..."
+docker-compose -p $NAMESPACE down
 
 echo "[$NAMESPACE][$TEST_TYPE] Cleaning up images..."
 docker rmi -f $(docker images | grep $NAMESPACE | awk '{ print $3 }')
