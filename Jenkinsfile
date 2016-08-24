@@ -13,6 +13,9 @@ node {
         checkout scm
         //echo "My branch is: ${env.BRANCH_NAME}"
     
+        stage 'Fail tests'
+        sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
+
         stage 'Unit tests'
         sh 'cd docker && TEST_TYPE=unit ./run_tester_dockerized.sh'
 
@@ -35,9 +38,9 @@ node {
     
         currentBuild.result = "FAILURE"
 
-        mail body: "project build FAILED: ${err}" ,
+        mail body: "project build FAILED, see ${env.BUILD_URL}" ,
         from: 'robot@build.local',
-        subject: 'project build failed',
+        subject: 'Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) FAILED.',
         to: 'ChieftainY2k@gmail.com'
 
         throw err

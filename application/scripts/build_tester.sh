@@ -6,7 +6,7 @@
 #fi
 
 # Install libraries
-COMPOSER_CACHE_DIR=/tmp/composer-cache/ composer install
+COMPOSER_CACHE_DIR=/tmp/composer-cache/ composer install --no-suggest
 
 # Run with phing tasks
 vendor/bin/phing -f build/build.xml build:tester

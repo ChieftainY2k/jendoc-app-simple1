@@ -84,6 +84,9 @@
             <formatter type="plain" usefile="false"/>
             <!--<formatter todir="${reportsDir}" type="html"/>-->
             <batchtest>
+                <fileset dir="../tests/FailTests/">
+                    <include name="*Test.php"/>
+                </fileset>
                 <fileset dir="../tests/UnitTests/">
                     <include name="*Test.php"/>
                 </fileset>
