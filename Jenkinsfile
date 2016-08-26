@@ -64,7 +64,22 @@ node("master") {
 
         stage 'Post-pipeline check'
         echo 'This is a fake post-stage message'
-        
+
+
+        stage 'Deploy application'
+        switch (env.BRANCH_NAME) {
+            case "master":
+                echo "Deploying to production servers"
+                break;
+            case "develop":
+                echo "Deploying to staging servers"
+                break;
+            default:
+                echo "Unknown branch '${env.BRANCH_NAME}' - skipping the deployment process."
+                break;
+        }
+
+
     } catch (err) {
     
         currentBuild.result = "FAILURE"
