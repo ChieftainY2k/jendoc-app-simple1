@@ -1,4 +1,4 @@
-#!groovy​
+#!/usr/bin/env groovy
 
 //
 // Branch strategies, see example: https://github.com/ForgeRock/openam-cidemo/blob/master/Jenkinsfile
@@ -31,20 +31,20 @@ node("master") {
                     sh 'cd docker && TEST_TYPE=unit ./run_tester_dockerized.sh'
                 }
             }
-//            ,
-//            "Smoke tests":{
-//                node {
-//                    unstash "appcode"
-//                    sh 'cd docker && TEST_TYPE=smoke ./run_tester_dockerized.sh'
-//                }
-//            }
-//            ,
-//            "Database tests":{
-//                node {
-//                    unstash "appcode"
-//                    sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
-//                }
-//            }
+            ,
+            "Smoke tests":{
+                node {
+                    unstash "appcode"
+                    sh 'cd docker && TEST_TYPE=smoke ./run_tester_dockerized.sh'
+                }
+            }
+            ,
+            "Database tests":{
+                node {
+                    unstash "appcode"
+                    sh 'cd docker && TEST_TYPE=database ./run_tester_dockerized.sh'
+                }
+            }
         )
 
         //stage 'Unit tests'
